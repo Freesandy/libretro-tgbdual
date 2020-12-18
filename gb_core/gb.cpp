@@ -90,10 +90,6 @@ void gb::reset()
 	now_frame=0;
 	skip=skip_buf=0;
 	re_render=0;
-
-	char *gb_names[]={(char*)"Invalid", (char*)"Gameboy", (char*)"SuperGameboy", (char*)"Gameboy Color", (char*)"Gameboy Advance"};
-	if (m_rom->get_loaded())
-		m_renderer->output_log("Current GB Type : %s \n", gb_names[m_rom->get_info()->gb_type]);
 }
 
 void gb::hook_extport(ext_hook *ext)
@@ -303,18 +299,6 @@ void gb::save_state_mem(void *buf)
 void gb::restore_state_mem(void *buf)
 {
 	serializer s(buf, serializer::LOAD_BUF);
-	serialize(s);
-}
-
-void gb::save_state(FILE *file)
-{
-	serializer s(file, serializer::SAVE_FILE);
-	serialize(s);
-}
-
-void gb::restore_state(FILE *file)
-{
-	serializer s(file, serializer::LOAD_FILE);
 	serialize(s);
 }
 
